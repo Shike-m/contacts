@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+		<!-- configuration below -->
+		<!-- 3. config for component scan -->
+		<context:component-scan base-package="com.contacts"></context:component-scan>
+		
+		<!-- 4. add MVC driven -->
+		<mvc:annotation-driven></mvc:annotation-driven>
+				
+		<!-- 5. add mvc resolver -->
+		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/WEB-INF/view/"></property>
+			<property name="suffix" value=".jsp"></property>
+		</bean>
+		<!-- interceptor -->
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/"/>
+				<mvc:mapping path="/**"/>
+				<mvc:exclude-mapping path="/login"/>
+				<mvc:exclude-mapping path="/logon"/>
+				<bean class="com.contacts.interceptor.Login"></bean>
+			</mvc:interceptor>
+		</mvc:interceptors>	
+</beans>
+
+
+
